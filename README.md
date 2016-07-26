@@ -1,28 +1,30 @@
 # redmine2confluence
 
-redmine2confluence is a tool for importing redmine wikis to Confluence.
+이 코드는 blue-yonder/redmine2confluence에서 fork 해서 수정한 것입니다.
 
-It has a few main strengths:
+redmine2confluence는 redmine의 wiki를 confluence로 migration을 할 때 사용하는 툴입니다.
 
-* Page ownership is preserved
-* Page hierarchies are preserved
-* Attachments are imported. Image attachments displayed within wiki pages are re-written so they continue to work.
-* URLs are made clickable.
-* Links to redmine issues (e.g. `#12345`) are turned into links to the equivalent issues on your JIRA instance.
-* URLs pointing to other redmine wiki pages rewritten as links to the equivalent Confluence pages.
+장점
+* Page 계층 구조가 보존된다.
+* 첨부파일도 migration이 된다.
+* URL에 link macro 추가.
+* redmine 내 Link를 Confluence 내의 Link로 변경해준다.
 
-Its main strength, however, is that this seems to be the only all-in-one solution for performing this kind of migration.
+제약사항
+* Page ownership는 settings.py의 confluence 계정으로 migration 됨
+* 완벽하게 migration 되진 않음. (테스트버전 - confluence : 5.10.2, redmine : 2.6.10.stable)
 
-## Disclaimer
+굳이 필요 없는 기능(?)
+* redmine 이슈(e.g. `#12345`)를 JIRA 이슈로 변경해서 링크 시켜줌.
 
-This code was written specifically to address a single import case, and may not behave as you'd like or expect it to.
+주의 사항
+해당 script를 실행 전에 *반드시* backup을 한 후, 진행!!!
 
-Back up your data before proceeding. This software is provided "as is".
+## Step
 
-## Instructions
-
-* Check out the repository
-* Add a `settings.py` file. Here is an example:
+* 레파지토리를 checkout 하세요.
+* `requirements.txt` 파일 안의 package들을 설치하세요.  - pip install -r requirements.txt
+* `settings.py` 파일을 해당 서버 정보에 맞게 수정하세요.
 
 ````
 REDMINE = {
@@ -45,4 +47,4 @@ PROJECTS = {
 }
 ````
 
-* Run `./redmine2confluence.py`
+* `./redmine2confluence.py`를 실행하세요.
